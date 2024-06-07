@@ -1,0 +1,24 @@
+package org.assetsglobal.controller;
+
+import org.assetsglobal.dto.UserRequest;
+import org.assetsglobal.dto.UserResponse;
+import org.assetsglobal.service.UserService;
+import org.assetsglobal.utility.ResponseStructure;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+
+@RestController
+public class UserController {
+
+	@Autowired
+	private UserService userService;
+	
+	@PostMapping(value = "addUser")
+	public ResponseEntity<ResponseStructure<UserResponse>> addUser(@RequestBody UserRequest userRequest){
+		return userService.addUser(userRequest);	
+	}
+}
