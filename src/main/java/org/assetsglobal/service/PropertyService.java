@@ -14,4 +14,6 @@ public interface PropertyService {
 
 	ResponseEntity<ResponseStructure<List<PropertyResponse>>> findByFilter(SearchFilter searchFilter);
 
+	ResponseEntity<ResponseStructure<List<PropertyResponse>>> findPropertyByCity(String propertyLocation);
+
 }

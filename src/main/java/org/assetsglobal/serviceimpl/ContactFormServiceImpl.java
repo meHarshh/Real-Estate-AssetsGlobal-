@@ -37,7 +37,8 @@ public class ContactFormServiceImpl implements ContactFormService {
 		}
 		ContactFormResponse contactFormResponse = mapToContactFormResponse(contactForm);
 		return ResponseEntity.ok(responseStructure.setStatusCode(HttpStatus.OK.value()).setData(contactFormResponse)
-				.setMessage("Lead registered successfully"));
+				.setMessage("Thanks for regsitering " + contactForm.getName()
+						+ " you got registered successfully, our executives will be getting back to you soon"));
 	}
 
 	private void sendMail(ContactForm contactForm) throws MessagingException {
@@ -48,8 +49,6 @@ public class ContactFormServiceImpl implements ContactFormService {
 				+ "</style>" + "</head>" + "<body>" + "<h2>Contact Form Submission</h2>" + "<table>" + "<tr>"
 				+ "<td colspan='2' style='text-align:center;'>"
 				+ "<img src='https://assetsglobal.in/images/img/logo.png' alt='Assets Global Logo' style='max-width:150px; height:auto;' />" // Adjusted
-																																				// logo
-																																				// size
 				+ "</td>" + "</tr>" + "<tr>" + "<td><strong>Name:</strong></td>" + "<td>" + contactForm.getName()
 				+ "</td>" + "</tr>" + "<tr>" + "<td><strong>Mobile Number:</strong></td>" + "<td>"
 				+ contactForm.getMobileNumber() + "</td>" + "</tr>" + "<tr>" + "<td><strong>Email:</strong></td>"

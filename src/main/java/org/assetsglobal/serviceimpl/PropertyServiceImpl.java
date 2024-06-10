@@ -2,6 +2,8 @@ package org.assetsglobal.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.assetsglobal.dto.PropertyRequest;
 import org.assetsglobal.dto.PropertyResponse;
@@ -35,7 +37,7 @@ public class PropertyServiceImpl implements PropertyService {
 
 		Property property = propertyRepository.save(mapToProperty(propertyRequest));
 		PropertyResponse propertyResponse = mapToResponse(property);
-		
+
 		return ResponseEntity.ok(responseStructure.setData(propertyResponse).setMessage("Data saved in the db")
 				.setStatusCode(HttpStatus.OK.value()));
 	}
@@ -50,14 +52,14 @@ public class PropertyServiceImpl implements PropertyService {
 		for (Property property : filteredProperties) {
 			filteredResponses.add(mapToResponse(property));
 		}
-		if((filteredResponses.size()!=0))
-		return ResponseEntity.ok(structure.setData(filteredResponses)
-				.setMessage("The list of the property is mentioned below").setStatusCode(HttpStatus.OK.value()));
-		
+		if ((filteredResponses.size() != 0))
+			return ResponseEntity.ok(structure.setData(filteredResponses)
+					.setMessage("The list of the property is mentioned below").setStatusCode(HttpStatus.OK.value()));
+
 		else
-			return ResponseEntity.ok(structure.setData(null)
-					.setMessage("No properties with the filters , try something else")
-					.setStatusCode(HttpStatus.OK.value()));
+			return ResponseEntity
+					.ok(structure.setData(null).setMessage("No properties with the filters , try something else")
+							.setStatusCode(HttpStatus.OK.value()));
 	}
 
 	private PropertyResponse mapToResponse(Property property) {
@@ -91,6 +93,28 @@ public class PropertyServiceImpl implements PropertyService {
 		property.setPurchseType(propertyRequest.getPurchseType());
 
 		return property;
+
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<List<PropertyResponse>>> findPropertyByCity(String propertyLocation) {
+		Optional<List<Property>> optionalProperties = propertyRepository.findByPropertyLocation(propertyLocation);
+
+		if (optionalProperties.isPresent() && !optionalProperties.get().isEmpty()) {
+			List<PropertyResponse> propertyResponses = optionalProperties.get().stream()
+					.map(property -> mapToResponse(property))
+					.collect(Collectors.toList());
+
+			ResponseStructure<List<PropertyResponse>> responseStructure = new ResponseStructure<>();
+			responseStructure.setData(propertyResponses);
+			responseStructure.setMessage("Properties found in " + propertyLocation);
+			responseStructure.setStatusCode(HttpStatus.OK.value());
+
+			return ResponseEntity.ok(responseStructure);
+		} else {
+			throw new RuntimeException();
+
+		}
 
 	}
 
