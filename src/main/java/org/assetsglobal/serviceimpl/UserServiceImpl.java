@@ -25,6 +25,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ResponseEntity<ResponseStructure<UserResponse>> addUser(UserRequest userRequest) {
+
+		if (userRequest.getUserEmail() == null || userRequest.getUserEmail() == "")
+			throw new org.assetsglobal.exception.IllegalArgumentException("Email is required");
+
+		if (userRequest.getUserName() == null || userRequest.getUserName() == "")
+			throw new org.assetsglobal.exception.IllegalArgumentException("User Name is required");
+
+		if (userRequest.getUserRole() == null)
+			throw new org.assetsglobal.exception.IllegalArgumentException("Invalid user role");
+
 		User user = mapToChildrenEntity(userRequest);
 		userRepository.save(user);
 		UserResponse userResponse = mapToUserResponse(user);

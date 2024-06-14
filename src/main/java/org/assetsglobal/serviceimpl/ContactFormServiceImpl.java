@@ -3,6 +3,7 @@ package org.assetsglobal.serviceimpl;
 import org.assetsglobal.dto.ContactFormRequest;
 import org.assetsglobal.dto.ContactFormResponse;
 import org.assetsglobal.entity.ContactForm;
+import org.assetsglobal.exception.IllegalArgumentException;
 import org.assetsglobal.mailservice.MailService;
 import org.assetsglobal.mailservice.MessageModel;
 import org.assetsglobal.repository.ContactFormRepository;
@@ -29,6 +30,8 @@ public class ContactFormServiceImpl implements ContactFormService {
 
 	@Override
 	public ResponseEntity<ResponseStructure<ContactFormResponse>> addClient(ContactFormRequest contactFormRequest) {
+		validate(contactFormRequest);
+
 		ContactForm contactForm = contactFormRepository.save(mapToContactForm(contactFormRequest));
 		try {
 			sendMail(contactForm);
@@ -37,8 +40,19 @@ public class ContactFormServiceImpl implements ContactFormService {
 		}
 		ContactFormResponse contactFormResponse = mapToContactFormResponse(contactForm);
 		return ResponseEntity.ok(responseStructure.setStatusCode(HttpStatus.OK.value()).setData(contactFormResponse)
-				.setMessage("Thanks for regsitering " + contactForm.getName()
+				.setMessage("Thanks! " + contactForm.getName()
 						+ " you got registered successfully, our executives will be getting back to you soon"));
+	}
+
+	private void validate(ContactFormRequest contactFormRequest) {
+		if (contactFormRequest.getName() == null || contactFormRequest.getName() == "")
+			throw new IllegalArgumentException("Please enter the name");
+
+		if (contactFormRequest.getEmail() == null || contactFormRequest.getEmail() == "")
+			throw new IllegalArgumentException("Please enter the valid email");
+
+		if ((String.valueOf(contactFormRequest.getMobileNumber()).length()) != 10)
+			throw new IllegalArgumentException("Enter a valid 10 digits mobile number");
 	}
 
 	private void sendMail(ContactForm contactForm) throws MessagingException {
@@ -61,9 +75,13 @@ public class ContactFormServiceImpl implements ContactFormService {
 	}
 
 	private ContactFormResponse mapToContactFormResponse(ContactForm contactForm) {
-		return ContactFormResponse.builder().contactId(contactForm.getContactId()).name(contactForm.getName())
-				.email(contactForm.getEmail()).message(contactForm.getMessage())
-				.mobileNumber(contactForm.getMobileNumber()).build();
+		return ContactFormResponse.builder()
+				.contactId(contactForm.getContactId())
+				.name(contactForm.getName())
+				.email(contactForm.getEmail())
+				.message(contactForm.getMessage())
+				.mobileNumber(contactForm.getMobileNumber())
+				.build();
 	}
 
 	private ContactForm mapToContactForm(ContactFormRequest contactFormRequest) {

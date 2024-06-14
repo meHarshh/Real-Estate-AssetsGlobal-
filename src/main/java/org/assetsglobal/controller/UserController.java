@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@CrossOrigin(origins = "http://127.0.0.1:5500", allowCredentials = "true")
+@CrossOrigin(origins = "http://127.0.0.1:5501", allowCredentials = "true")
 @RestController
 public class UserController {
 
@@ -22,5 +22,5 @@ public class UserController {
 	@PostMapping(value = "addUser")
 	public ResponseEntity<ResponseStructure<UserResponse>> addUser(@RequestBody UserRequest userRequest){
 		return userService.addUser(userRequest);	
-	}
+	} 
 }
