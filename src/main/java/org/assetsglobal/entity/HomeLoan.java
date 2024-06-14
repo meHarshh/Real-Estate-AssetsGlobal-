@@ -1,11 +1,7 @@
 package org.assetsglobal.entity;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import org.assetsglobal.enums.BankingPartner;
 
-import org.assetsglobal.enums.ServiceType;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,20 +11,14 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "service_page_lead")
-public class Service {
+@Table(name = "home_loan_client")
+public class HomeLoan {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "service_id")
-	private int serviceId;
+	private int loadId;
 	private String name;
 	private String email;
 	private long phoneNumber;
-	private String message;
-	private LocalDate day;
-	private LocalTime time;
-	private ServiceType serviceType;
-	
-
+	private BankingPartner bankingPartner;
 }
