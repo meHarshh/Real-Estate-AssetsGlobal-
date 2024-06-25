@@ -2,6 +2,7 @@ package org.assetsglobal.dto;
 
 import org.assetsglobal.enums.AgeOfProperty;
 import org.assetsglobal.enums.ConstructionStatus;
+import org.assetsglobal.enums.LandType;
 import org.assetsglobal.enums.ListedBy;
 import org.assetsglobal.enums.Possesion;
 import org.assetsglobal.enums.PropertyConfiguration;
@@ -33,4 +34,5 @@ public class PropertyResponse {
 	private ConstructionStatus constructionStatus;
 	private PropertyType propertyType;
 	private String numberOfFloors;
+	private LandType landType;
 }

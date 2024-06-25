@@ -16,4 +16,6 @@ public interface PropertyService {
 
 	ResponseEntity<ResponseStructure<List<PropertyResponse>>> findPropertyByCity(String propertyLocation);
 
+	ResponseEntity<ResponseStructure<List<PropertyResponse>>> findAllProperty();
+
 }

@@ -1,4 +1,4 @@
-package org.assetsglobal.entity;
+package org.assetsglobal.dto;
 
 import java.time.LocalDate;
 
@@ -6,23 +6,16 @@ import org.assetsglobal.enums.BrockrageCharge;
 import org.assetsglobal.enums.ConstructionStatus;
 import org.assetsglobal.enums.Facing;
 import org.assetsglobal.enums.FurnishedType;
+import org.assetsglobal.enums.LandType;
 import org.assetsglobal.enums.Parking;
 import org.assetsglobal.enums.PropertyType;
 import org.assetsglobal.enums.TransactionType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
 import lombok.Data;
 
-@Entity
 @Data
-public class SellerDashboard {
+public class PropertyDeveloperRequest {
 
-	// Seller Details
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int sellerDashboarId;
 	private String sellerName;
 	private long sellerMobileNumber;
 	private String sellerEmail;
@@ -44,6 +37,8 @@ public class SellerDashboard {
 	private BrockrageCharge brockrageCharge;
 	private double builtUpArea;
 	private double carpetArea;
+	private double area;
+	private LandType landType;
 	private Facing facing;
 	private String propertyAddress;
 	private String reraId;
@@ -51,5 +46,5 @@ public class SellerDashboard {
 	private String city;
 	private String propertyLocation;
 	private String state;
-
+	
 }

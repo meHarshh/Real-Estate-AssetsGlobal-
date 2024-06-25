@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 	private UserResponse mapToUserResponse(User user) {
 
 		return UserResponse.builder().userId(user.getUserId()).userName(user.getUserName())
-				.userEmail(user.getUserEmail()).userRole(user.getUserRole()).build();
+				.userEmail(user.getUserEmail()).phoneNumber(user.getPhoneNumber()).userRole(user.getUserRole()).build();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
 		case BUYER -> user = new Buyer();
 		default -> throw new IllegalArgumentException("Invalid Input!!!");
 		}
+		user.setPhoneNumber(userRequest.getPhoneNumber());
 		user.setUserName(userRequest.getUserName());
 		user.setUserEmail(userRequest.getUserEmail());
 		user.setUserRole(userRequest.getUserRole());

@@ -38,4 +38,9 @@ public class PropertyController {
 			@PathVariable String propertyLocation) {
 		return propertyService.findPropertyByCity(propertyLocation);
 	}
+
+	@GetMapping(value = "fetchALlProperty")
+	private ResponseEntity<ResponseStructure<List<PropertyResponse>>> findAllProperty() {
+		return propertyService.findAllProperty();
+	}
 }

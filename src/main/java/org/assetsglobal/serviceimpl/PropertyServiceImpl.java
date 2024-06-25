@@ -102,8 +102,7 @@ public class PropertyServiceImpl implements PropertyService {
 
 		if (optionalProperties.isPresent() && !optionalProperties.get().isEmpty()) {
 			List<PropertyResponse> propertyResponses = optionalProperties.get().stream()
-					.map(property -> mapToResponse(property))
-					.collect(Collectors.toList());
+					.map(property -> mapToResponse(property)).collect(Collectors.toList());
 
 			ResponseStructure<List<PropertyResponse>> responseStructure = new ResponseStructure<>();
 			responseStructure.setData(propertyResponses);
@@ -115,7 +114,20 @@ public class PropertyServiceImpl implements PropertyService {
 			throw new RuntimeException();
 
 		}
-
 	}
 
+	@Override
+	public ResponseEntity<ResponseStructure<List<PropertyResponse>>> findAllProperty() {
+		List<Property> properties = propertyRepository.findAll();
+
+		List<PropertyResponse> propertiesResponses = properties.stream().map(property -> mapToResponse(property))
+				.collect(Collectors.toList());
+
+		ResponseStructure<List<PropertyResponse>> responseStructure = new ResponseStructure<>();
+		responseStructure.setData(propertiesResponses);
+		responseStructure.setMessage("The numbers of property fetched is " + propertiesResponses.size());
+		responseStructure.setStatusCode(HttpStatus.OK.value());
+
+		return ResponseEntity.ok(responseStructure);
+	}
 }
