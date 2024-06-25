@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(value = "http://127.0.0.1:5500" , allowCredentials = "true")
+@CrossOrigin(value = "http://localhost:3000" , allowCredentials = "true")
 public class ServiceController {
 
 	@Autowired

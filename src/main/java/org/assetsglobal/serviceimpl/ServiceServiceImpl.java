@@ -23,7 +23,7 @@ public class ServiceServiceImpl implements ServiceService {
 	@Override
 	public ResponseEntity<ResponseStructure<ServiceResponse>> registerServiceUser(ServiceRequest request) {
 
-		validate(request); //all the logics to validate the requests 
+		validate(request); // all the logics to validate the requests
 
 		Service service = serviceRepository.save(mapToService(request));
 		ServiceResponse response = mapToResponse(service);
@@ -42,22 +42,13 @@ public class ServiceServiceImpl implements ServiceService {
 		if (String.valueOf(request.getPhoneNumber()).length() != 10)
 			throw new IllegalArgumentException("Enter a valid phone number");
 
-		if (request.getMessage().length() < 51)
-			throw new IllegalArgumentException("Tell us the reason what help you need from us within 50 words");
 	}
 
 	private ServiceResponse mapToResponse(Service service) {
 
-		return ServiceResponse.builder()
-				.serviceId(service.getServiceId())
-				.name(service.getName())
-				.email(service.getEmail())
-				.phoneNumber(service.getPhoneNumber())
-				.message(service.getMessage())
-				.serviceType(service.getServiceType())
-				.day(service.getDay())
-				.time(service.getTime())
-				.build();
+		return ServiceResponse.builder().serviceId(service.getServiceId()).name(service.getName())
+				.email(service.getEmail()).phoneNumber(service.getPhoneNumber()).message(service.getMessage())
+				.serviceType(service.getServiceType()).day(service.getDay()).time(service.getTime()).build();
 	}
 
 	private Service mapToService(ServiceRequest request) {
