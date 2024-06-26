@@ -2,6 +2,7 @@ package org.assetsglobal.serviceimpl;
 
 import org.assetsglobal.dto.UserRequest;
 import org.assetsglobal.dto.UserResponse;
+import org.assetsglobal.entity.Brocker;
 import org.assetsglobal.entity.Buyer;
 import org.assetsglobal.entity.Seller;
 import org.assetsglobal.entity.User;
@@ -56,6 +57,7 @@ public class UserServiceImpl implements UserService {
 		switch (role) {
 		case SELLER -> user = new Seller();
 		case BUYER -> user = new Buyer();
+		case BROCKER -> user = new Brocker();
 		default -> throw new IllegalArgumentException("Invalid Input!!!");
 		}
 		user.setPhoneNumber(userRequest.getPhoneNumber());
