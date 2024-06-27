@@ -31,5 +31,6 @@ public class User {
 	private String userEmail;
 	private long phoneNumber;
 	private UserRole userRole;
+	private boolean isEmailVerified;
 
 }

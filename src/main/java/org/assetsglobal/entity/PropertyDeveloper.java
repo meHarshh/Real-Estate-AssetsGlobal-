@@ -24,11 +24,7 @@ public class PropertyDeveloper {
 	// Seller Details
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int sellerDashboarId;
-	private String sellerName;
-	private long sellerMobileNumber;
-	private String sellerEmail;
-	private String sellerLocation;
+	private int propertyDeveloperId;
 
 	// Property Details from the seller that he wants to list and sell
 	private PropertyType propertyType;

@@ -8,6 +8,8 @@ import lombok.Getter;
 @Getter
 public class IllegalArgumentException extends RuntimeException {
 
+	
+
 	private String message;
 	
 }
