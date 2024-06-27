@@ -82,11 +82,6 @@ public class PropertyDeveloperServiceImpl implements PropertyDeveloperService {
 	private PropertyDeveloperResponse mapToResponse(PropertyDeveloper sellerDashboard) {
 
 		PropertyDeveloperResponse sellerDashboardResponse = new PropertyDeveloperResponse();
-		sellerDashboardResponse.setSellerDashboarId(sellerDashboard.getSellerDashboarId());
-		sellerDashboardResponse.setSellerName(sellerDashboard.getSellerName());
-		sellerDashboardResponse.setSellerEmail(sellerDashboard.getSellerEmail());
-		sellerDashboardResponse.setSellerMobileNumber(sellerDashboard.getSellerMobileNumber());
-		sellerDashboardResponse.setSellerLocation(sellerDashboard.getSellerLocation());
 		sellerDashboardResponse.setPropertyType(sellerDashboard.getPropertyType());
 		sellerDashboardResponse.setTransactionType(sellerDashboard.getTransactionType());
 		sellerDashboardResponse.setConstructionStatus(sellerDashboard.getConstructionStatus());
@@ -118,10 +113,6 @@ public class PropertyDeveloperServiceImpl implements PropertyDeveloperService {
 	private PropertyDeveloper mapToEntity(PropertyDeveloperRequest sellerDashboardRequest) {
 		PropertyDeveloper sellerDashboard = new PropertyDeveloper();
 		// Seller details
-		sellerDashboard.setSellerName(sellerDashboardRequest.getSellerName());
-		sellerDashboard.setSellerEmail(sellerDashboardRequest.getSellerEmail());
-		sellerDashboard.setSellerMobileNumber(sellerDashboardRequest.getSellerMobileNumber());
-		sellerDashboard.setSellerLocation(sellerDashboardRequest.getSellerLocation());
 
 		// Property details that seller is going to publish
 		sellerDashboard.setPropertyType(sellerDashboardRequest.getPropertyType());
@@ -154,17 +145,6 @@ public class PropertyDeveloperServiceImpl implements PropertyDeveloperService {
 
 	private void verify(PropertyDeveloperRequest sellerDashboardRequest) {
 
-	    if (sellerDashboardRequest.getSellerName() == null || sellerDashboardRequest.getSellerName().isEmpty())
-	        throw new IllegalArgumentException("Name is required");
-
-	    if (String.valueOf(sellerDashboardRequest.getSellerMobileNumber()).length() != 10)
-	        throw new IllegalArgumentException("Invalid mobile number");
-
-//	    if (sellerDashboardRequest.getSellerEmail() == null)
-//	        throw new IllegalArgumentException("Email is required");
-
-	    if (sellerDashboardRequest.getSellerLocation() == null)
-	        throw new IllegalArgumentException("Location needs to be filled");
 	    
 	    if (sellerDashboardRequest.getCost() <= 100000)
             throw new IllegalArgumentException("Please enter a valid property cost");
@@ -226,7 +206,7 @@ public class PropertyDeveloperServiceImpl implements PropertyDeveloperService {
 		PropertyDeveloperResponse sellerDashboardResponse = mapToResponse(sellerDashboard);
 
 		return ResponseEntity.ok(responseStructure.setData(sellerDashboardResponse)
-				.setMessage("Hey " + sellerDashboardRequest.getSellerName() + "you are added as a Seller")
+				.setMessage("Hey you are added as a Seller")
 				.setStatusCode(HttpStatus.OK.value()));
 	}
 

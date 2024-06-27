@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SimpleResponseStructure {
+	
 	private String message;
 	private int statusCode;
 
