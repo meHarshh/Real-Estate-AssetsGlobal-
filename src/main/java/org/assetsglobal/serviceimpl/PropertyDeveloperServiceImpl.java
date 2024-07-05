@@ -30,28 +30,24 @@ public class PropertyDeveloperServiceImpl implements PropertyDeveloperService {
 
 	@Autowired
 	private ResponseStructure<PropertyDeveloperResponse> responseStructure;
+	
+// This method is used to add the sellers/brocker property to the db once they are verified as user
+	@Override
+	public ResponseEntity<ResponseStructure<PropertyDeveloperResponse>> addSellerWithProperty(
+			PropertyDeveloperRequest sellerDashboardRequest, MultipartFile videoFile, MultipartFile photoFile) {
+		
+		verify(sellerDashboardRequest);
 
-	// @Autowired
-	// private SellerRepository sellerRepository;
+		PropertyDeveloper mapToEntity = mapToEntity(sellerDashboardRequest);
+		PropertyDeveloper sellerDashboard = sellerDashboardRepository.save(mapToEntity);
+		PropertyDeveloperResponse sellerDashboardResponse = mapToResponse(sellerDashboard);
 
-	// @Override
-	// public ResponseEntity<ResponseStructure<SellerDashboardResponse>>
-	// addSellerWithProperty(
-	// SellerDashboardRequest sellerDashboardRequest) {
-	//
-	// verify(sellerDashboardRequest);
-	//
-	// SellerDashboard sellerDashboard =
-	// sellerDashboardRepository.save(mapToEntity(sellerDashboardRequest));
-	// SellerDashboardResponse sellerDashboardResponse =
-	// mapToResponse(sellerDashboard);
-	//
-	// return ResponseEntity.ok(responseStructure.setData(sellerDashboardResponse)
-	// .setMessage("Hey " + sellerDashboardRequest.getSellerName() + "you are added
-	// as a Seller")
-	// .setStatusCode(HttpStatus.OK.value()));
-	// }
+		return ResponseEntity.ok(responseStructure.setData(sellerDashboardResponse)
+				.setMessage("Hey you are added as a Seller")
+				.setStatusCode(HttpStatus.OK.value()));
+	}
 
+//	This method is used to fetch all the seller from the database with their properties 
 	@Override
 	public ResponseEntity<ResponseStructure<List<PropertyDeveloperResponse>>> fetchAllSellerWithProperty() {
 
@@ -68,6 +64,7 @@ public class PropertyDeveloperServiceImpl implements PropertyDeveloperService {
 		return ResponseEntity.ok(responseStructure);
 	}
 
+//	This method is used to fetch the id from the database based on the seller id
 	@Override
 	public ResponseEntity<ResponseStructure<PropertyDeveloperResponse>> fetchPropertyById(int sellerDaashboardId) {
 		return sellerDashboardRepository.findById(sellerDaashboardId).map(property -> {
@@ -77,11 +74,13 @@ public class PropertyDeveloperServiceImpl implements PropertyDeveloperService {
 		}).orElseThrow(() -> new RuntimeException("Property not found"));
 	}
 
-	// Mappers
-
+	
+	//This is the mapper method which is used convert the entity to the response and send the response type of the entity
 	private PropertyDeveloperResponse mapToResponse(PropertyDeveloper sellerDashboard) {
 
 		PropertyDeveloperResponse sellerDashboardResponse = new PropertyDeveloperResponse();
+		
+		sellerDashboardResponse.setPropertyDeveloperId(sellerDashboard.getPropertyDeveloperId());
 		sellerDashboardResponse.setPropertyType(sellerDashboard.getPropertyType());
 		sellerDashboardResponse.setTransactionType(sellerDashboard.getTransactionType());
 		sellerDashboardResponse.setConstructionStatus(sellerDashboard.getConstructionStatus());
@@ -110,11 +109,10 @@ public class PropertyDeveloperServiceImpl implements PropertyDeveloperService {
 		return sellerDashboardResponse;
 	}
 
+//	This mapper method is used to map the request to the entity 
 	private PropertyDeveloper mapToEntity(PropertyDeveloperRequest sellerDashboardRequest) {
 		PropertyDeveloper sellerDashboard = new PropertyDeveloper();
-		// Seller details
-
-		// Property details that seller is going to publish
+		
 		sellerDashboard.setPropertyType(sellerDashboardRequest.getPropertyType());
 		sellerDashboard.setTransactionType(sellerDashboardRequest.getTransactionType());
 		sellerDashboard.setConstructionStatus(sellerDashboardRequest.getConstructionStatus());
@@ -139,10 +137,10 @@ public class PropertyDeveloperServiceImpl implements PropertyDeveloperService {
 		sellerDashboard.setPropertyLocation(sellerDashboardRequest.getPropertyLocation());
 		sellerDashboard.setState(sellerDashboardRequest.getState());
 		sellerDashboard.setLandType(sellerDashboardRequest.getLandType());
-//sellerDashboard.setla
 		return sellerDashboard;
 	}
 
+	// This method is to verify the details of the seller/ broker registering their property
 	private void verify(PropertyDeveloperRequest sellerDashboardRequest) {
 
 	    
@@ -186,30 +184,10 @@ public class PropertyDeveloperServiceImpl implements PropertyDeveloperService {
 	    }
 	}
 
+
 	
 
-	@Override
-	public ResponseEntity<ResponseStructure<PropertyDeveloperResponse>> addSellerWithProperty(
-			PropertyDeveloperRequest sellerDashboardRequest, MultipartFile videoFile, MultipartFile photoFile) {
-		verify(sellerDashboardRequest);
-
-		PropertyDeveloper mapToEntity = mapToEntity(sellerDashboardRequest);
-
-		// Verify the media getting from the frontend
-		// try {
-		// mediaVerification(photoFile, videoFile, mapToEntity);
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-
-		PropertyDeveloper sellerDashboard = sellerDashboardRepository.save(mapToEntity);
-		PropertyDeveloperResponse sellerDashboardResponse = mapToResponse(sellerDashboard);
-
-		return ResponseEntity.ok(responseStructure.setData(sellerDashboardResponse)
-				.setMessage("Hey you are added as a Seller")
-				.setStatusCode(HttpStatus.OK.value()));
-	}
-
+	// this method is used to fetch the location from the db based on the city
 	@Override
 	public ResponseEntity<ResponseStructure<List<String>>> findLocationByCity(String city) {
 		Optional<List<PropertyDeveloper>> optionalPropertyDevelopers = sellerDashboardRepository.findByCity(city);
@@ -225,7 +203,7 @@ public class PropertyDeveloperServiceImpl implements PropertyDeveloperService {
 				}
 			}
 
-			// Convert set to list if needed
+			// Converted the set to list
 			List<String> cities = new ArrayList<>(citySet);
 
 			ResponseStructure<List<String>> responseStructure = new ResponseStructure<>();
@@ -242,6 +220,8 @@ public class PropertyDeveloperServiceImpl implements PropertyDeveloperService {
 		}
 	}
 
+	
+//	This method is used to fetch all the property from the database based on the location provided to the method parameter
 	@Override
 	public ResponseEntity<ResponseStructure<List<PropertyDeveloperResponse>>> findPropertyByLocation(String location) {
 		Optional<List<PropertyDeveloper>> properties = sellerDashboardRepository.findByPropertyLocation(location);

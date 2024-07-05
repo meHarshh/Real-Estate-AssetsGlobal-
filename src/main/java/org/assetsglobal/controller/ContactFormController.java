@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@CrossOrigin(value = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(value = "http://localhost:3000", allowCredentials = "true")
 @RestController
 public class ContactFormController {
 

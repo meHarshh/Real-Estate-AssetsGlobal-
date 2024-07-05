@@ -32,6 +32,7 @@ public class PropertyServiceImpl implements PropertyService {
 	@Autowired
 	private ResponseStructure<List<PropertyResponse>> structure;
 
+//	This method is to add the property to our database based on the seller that adds their property to the db
 	@Override
 	public ResponseEntity<ResponseStructure<PropertyResponse>> addProperty(PropertyRequest propertyRequest) {
 
@@ -42,6 +43,7 @@ public class PropertyServiceImpl implements PropertyService {
 				.setStatusCode(HttpStatus.OK.value()));
 	}
 
+//	This method is used to filter the property based on the filter provided by the user
 	@SuppressWarnings("rawtypes")
 	@Override
 	public ResponseEntity<ResponseStructure<List<PropertyResponse>>> findByFilter(SearchFilter searchFilter) {
@@ -62,6 +64,7 @@ public class PropertyServiceImpl implements PropertyService {
 							.setStatusCode(HttpStatus.OK.value()));
 	}
 
+//	This is the mapper method which is used to map the entity back to the response
 	private PropertyResponse mapToResponse(Property property) {
 
 		return PropertyResponse.builder().propertyId(property.getPropertyId())
@@ -74,6 +77,7 @@ public class PropertyServiceImpl implements PropertyService {
 				.propertyType(property.getPropertyType()).numberOfFloors(property.getNumberOfFloors()).build();
 	}
 
+//	This is the mapper method which is used to map the property request taken from the user to convert to the entity type
 	private Property mapToProperty(PropertyRequest propertyRequest) {
 		Property property = new Property();
 		property.setAgeOfProperty(propertyRequest.getAgeOfProperty());
@@ -96,6 +100,8 @@ public class PropertyServiceImpl implements PropertyService {
 
 	}
 
+	
+//	this method is to fetch all the property based on the location of the city
 	@Override
 	public ResponseEntity<ResponseStructure<List<PropertyResponse>>> findPropertyByCity(String propertyLocation) {
 		Optional<List<Property>> optionalProperties = propertyRepository.findByPropertyLocation(propertyLocation);
@@ -116,6 +122,7 @@ public class PropertyServiceImpl implements PropertyService {
 		}
 	}
 
+//	This method is to fetch all the property in our database
 	@Override
 	public ResponseEntity<ResponseStructure<List<PropertyResponse>>> findAllProperty() {
 		List<Property> properties = propertyRepository.findAll();

@@ -20,6 +20,7 @@ public class ServiceServiceImpl implements ServiceService {
 	@Autowired
 	private ResponseStructure<ServiceResponse> responseStructure;
 
+//	This method is used to register the user from the service page based on their requirment of service
 	@Override
 	public ResponseEntity<ResponseStructure<ServiceResponse>> registerServiceUser(ServiceRequest request) {
 
@@ -32,6 +33,7 @@ public class ServiceServiceImpl implements ServiceService {
 				.setStatusCode(HttpStatus.OK.value()));
 	}
 
+//	This method is for the validations of the input taken from the user
 	private void validate(ServiceRequest request) {
 		if (request.getEmail() == null || request.getEmail() == "")
 			throw new IllegalArgumentException("Email cant be empty");
@@ -44,6 +46,7 @@ public class ServiceServiceImpl implements ServiceService {
 
 	}
 
+//	This mapper method is used to change the entity to response
 	private ServiceResponse mapToResponse(Service service) {
 
 		return ServiceResponse.builder().serviceId(service.getServiceId()).name(service.getName())
@@ -51,6 +54,7 @@ public class ServiceServiceImpl implements ServiceService {
 				.serviceType(service.getServiceType()).day(service.getDay()).time(service.getTime()).build();
 	}
 
+//	This method is used to map the request body to entity
 	private Service mapToService(ServiceRequest request) {
 		Service service = new Service();
 		service.setName(request.getName());

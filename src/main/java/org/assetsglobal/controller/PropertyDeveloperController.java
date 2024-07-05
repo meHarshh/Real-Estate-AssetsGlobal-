@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5500", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class PropertyDeveloperController {
 
 	@Autowired

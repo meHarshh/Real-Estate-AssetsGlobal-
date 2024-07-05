@@ -1,14 +1,11 @@
 package org.assetsglobal.serviceimpl;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.assetsglobal.dto.SearchFilter;
 import org.assetsglobal.entity.Property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
-
 import jakarta.persistence.criteria.Predicate;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -21,6 +18,7 @@ public class PropertySpecification {
 	@Autowired
 	private SearchFilter searchFilter;
 
+//	this is the method used to fetch the property based on the filters applied 
 	public Specification<Property> buildSpecification(SearchFilter searchFilter){
 
 		return (root , query , criteriaBuilder)->{
