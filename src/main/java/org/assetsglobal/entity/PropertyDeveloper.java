@@ -25,7 +25,8 @@ public class PropertyDeveloper {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int propertyDeveloperId;
-
+	
+	private String developerName;
 	// Property Details from the seller that he wants to list and sell
 	private PropertyType propertyType;
 	private TransactionType transactionType;

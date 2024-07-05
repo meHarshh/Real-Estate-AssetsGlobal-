@@ -16,6 +16,7 @@ import lombok.Data;
 public class PropertyDeveloperResponse {
 
 	// Property Details from the seller that he wants to list and sell
+	private int propertyDeveloperId;
 	private PropertyType propertyType;
 	private TransactionType transactionType;
 	private ConstructionStatus constructionStatus;
@@ -40,7 +41,7 @@ public class PropertyDeveloperResponse {
 	private String city;
 	private String propertyLocation;
 	private String state;
-	
+
 	private byte[] video;
 	private byte[] photo;
 

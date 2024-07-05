@@ -21,6 +21,7 @@ public class HomeLoanServiceImpl implements HomeLoanService {
 	@Autowired
 	private ResponseStructure<HomeLoanResponse> responseStructure;
 
+	// this method is used to add lead who want to puchase the property with the home loan 
 	@Override
 	public ResponseEntity<ResponseStructure<HomeLoanResponse>> addLoanLead(HomeLoanRequest homeLoanRequest) {
 		validate(homeLoanRequest);
@@ -33,6 +34,7 @@ public class HomeLoanServiceImpl implements HomeLoanService {
 				.setStatusCode(HttpStatus.OK.value()));
 	}
 
+//	this method is to validate that the form filled by the user is valid or not
 	private void validate(HomeLoanRequest homeLoanRequest) {
 		if (homeLoanRequest.getEmail() == null || homeLoanRequest.getEmail() == "")
 			throw new IllegalArgumentException("Email cant be empty");
@@ -45,6 +47,7 @@ public class HomeLoanServiceImpl implements HomeLoanService {
 
 	}
 
+//	this is the mapper method to map the  entity to the response
 	private HomeLoanResponse mapToResponse(HomeLoan homeLoan) {
 		return HomeLoanResponse.builder()
 				.loadId(homeLoan.getLoadId())
@@ -56,6 +59,7 @@ public class HomeLoanServiceImpl implements HomeLoanService {
 
 	}
 
+	// this method is used to map the request from the frontend to the response
 	private HomeLoan mapToEntity(HomeLoanRequest homeLoanRequest) {
 		HomeLoan homeLoan = new HomeLoan();
 		homeLoan.setName(homeLoanRequest.getName());

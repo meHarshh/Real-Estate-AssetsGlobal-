@@ -28,6 +28,7 @@ public class ContactFormServiceImpl implements ContactFormService {
 	@Autowired
 	private MailService mailService;
 
+//	This form is used to add the leads to the db and send the mail to the official of the assets global
 	@Override
 	public ResponseEntity<ResponseStructure<ContactFormResponse>> addClient(ContactFormRequest contactFormRequest) {
 		validate(contactFormRequest);
@@ -41,9 +42,10 @@ public class ContactFormServiceImpl implements ContactFormService {
 		ContactFormResponse contactFormResponse = mapToContactFormResponse(contactForm);
 		return ResponseEntity.ok(responseStructure.setStatusCode(HttpStatus.OK.value()).setData(contactFormResponse)
 				.setMessage("Thanks! " + contactForm.getName()
-						+ " you got registered successfully, our executives will be getting back to you soon"));
+						+ " you got registered successfully, we will shortly get connected to you"));
 	}
 
+	//this form is used for the validation of the contact form details coming from the user
 	private void validate(ContactFormRequest contactFormRequest) {
 		if (contactFormRequest.getName() == null || contactFormRequest.getName() == "")
 			throw new IllegalArgumentException("Please enter the name");
@@ -55,6 +57,7 @@ public class ContactFormServiceImpl implements ContactFormService {
 			throw new IllegalArgumentException("Enter a valid 10 digits mobile number");
 	}
 
+	//this method is for sending the mail to Assets Global which contains the information of the lead
 	private void sendMail(ContactForm contactForm) throws MessagingException {
 		String htmlContent = "<html>" + "<head>" + "<style>" + "table {" + "    font-family: Arial, sans-serif;"
 				+ "    border-collapse: collapse;" + "    width: 100%;" + "}" + "td, th {"
@@ -74,6 +77,7 @@ public class ContactFormServiceImpl implements ContactFormService {
 		mailService.sendMailMessage(model);
 	}
 
+	// This mapper method is built using the builder pattern which is used for the mapping of contact form to response 
 	private ContactFormResponse mapToContactFormResponse(ContactForm contactForm) {
 		return ContactFormResponse.builder()
 				.contactId(contactForm.getContactId())
@@ -84,6 +88,7 @@ public class ContactFormServiceImpl implements ContactFormService {
 				.build();
 	}
 
+	// This contact form method is used to map the contact form from the request to the entity/bean
 	private ContactForm mapToContactForm(ContactFormRequest contactFormRequest) {
 		ContactForm contactForm = new ContactForm();
 

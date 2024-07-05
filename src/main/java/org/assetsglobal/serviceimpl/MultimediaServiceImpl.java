@@ -19,6 +19,7 @@ public class MultimediaServiceImpl implements MultimediaService {
 	@Autowired
 	private MultimediaRepository multimediaRepository;
 
+	//	this method is used to fetch the media from the mongoDB database based on the mongoId
 	@Override
 	public ResponseEntity<byte[]> getMedia(String mediaId) {
 		return multimediaRepository.findById(mediaId)
@@ -26,6 +27,9 @@ public class MultimediaServiceImpl implements MultimediaService {
 						.contentLength(media.getMediaBytes().length).body(media.getMediaBytes()))
 				.orElseThrow();
 	}
+
+	//	This method is used to save the image in the db with the developer id so 
+	//	that the media file gets mapped with the developer in  the database
 
 	@Override
 	public ResponseEntity<SimpleResponseStructure> saveImage(MultipartFile file, int developerID) throws IOException {
@@ -38,6 +42,8 @@ public class MultimediaServiceImpl implements MultimediaService {
 				.message("media saved successfully").build());
 	}
 
+	//	This method is used to fetch the medias from the mongoDB database based on the
+	// developer id which is mapped to the databases
 	@Override
 	public ResponseEntity<byte[]> getMedias(int developerId) {
 		return multimediaRepository.findByDeveloperId(developerId)
