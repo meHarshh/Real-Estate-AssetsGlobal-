@@ -1,8 +1,9 @@
 package org.assetsglobal.entity;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,11 +15,13 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "multimedia")
+@Entity
 public class Multimedia {
 
-	@MongoId
-	private String mediaId;
+	
+	@Id
+	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+	private int mediaId;
 	
 	private int developerId;
 	

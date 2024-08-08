@@ -24,7 +24,7 @@ public class MultimediaController {
 	}
 	
 	@GetMapping(value = "getMedia/{mediaId}")
-	private ResponseEntity<byte[]> getMedia(@PathVariable String mediaId){
+	private ResponseEntity<byte[]> getMedia(@PathVariable int mediaId){
 		return multimediaService.getMedia(mediaId);
 	}
 

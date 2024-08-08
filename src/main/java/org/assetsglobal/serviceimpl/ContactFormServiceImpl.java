@@ -45,7 +45,8 @@ public class ContactFormServiceImpl implements ContactFormService {
 						+ " you got registered successfully, we will shortly get connected to you"));
 	}
 
-	//this form is used for the validation of the contact form details coming from the user
+	// this form is used for the validation of the contact form details coming from
+	// the user
 	private void validate(ContactFormRequest contactFormRequest) {
 		if (contactFormRequest.getName() == null || contactFormRequest.getName() == "")
 			throw new IllegalArgumentException("Please enter the name");
@@ -57,7 +58,8 @@ public class ContactFormServiceImpl implements ContactFormService {
 			throw new IllegalArgumentException("Enter a valid 10 digits mobile number");
 	}
 
-	//this method is for sending the mail to Assets Global which contains the information of the lead
+	// this method is for sending the mail to Assets Global which contains the
+	// information of the lead
 	private void sendMail(ContactForm contactForm) throws MessagingException {
 		String htmlContent = "<html>" + "<head>" + "<style>" + "table {" + "    font-family: Arial, sans-serif;"
 				+ "    border-collapse: collapse;" + "    width: 100%;" + "}" + "td, th {"
@@ -77,18 +79,16 @@ public class ContactFormServiceImpl implements ContactFormService {
 		mailService.sendMailMessage(model);
 	}
 
-	// This mapper method is built using the builder pattern which is used for the mapping of contact form to response 
+	// This mapper method is built using the builder pattern which is used for the
+	// mapping of contact form to response
 	private ContactFormResponse mapToContactFormResponse(ContactForm contactForm) {
-		return ContactFormResponse.builder()
-				.contactId(contactForm.getContactId())
-				.name(contactForm.getName())
-				.email(contactForm.getEmail())
-				.message(contactForm.getMessage())
-				.mobileNumber(contactForm.getMobileNumber())
-				.build();
+		return ContactFormResponse.builder().contactId(contactForm.getContactId()).name(contactForm.getName())
+				.email(contactForm.getEmail()).message(contactForm.getMessage())
+				.mobileNumber(contactForm.getMobileNumber()).build();
 	}
 
-	// This contact form method is used to map the contact form from the request to the entity/bean
+	// This contact form method is used to map the contact form from the request to
+	// the entity/bean
 	private ContactForm mapToContactForm(ContactFormRequest contactFormRequest) {
 		ContactForm contactForm = new ContactForm();
 

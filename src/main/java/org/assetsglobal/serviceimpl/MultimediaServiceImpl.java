@@ -21,7 +21,7 @@ public class MultimediaServiceImpl implements MultimediaService {
 
 	//	this method is used to fetch the media from the mongoDB database based on the mongoId
 	@Override
-	public ResponseEntity<byte[]> getMedia(String mediaId) {
+	public ResponseEntity<byte[]> getMedia(int mediaId) {
 		return multimediaRepository.findById(mediaId)
 				.map(media -> ResponseEntity.ok().contentType(MediaType.valueOf(media.getContentType()))
 						.contentLength(media.getMediaBytes().length).body(media.getMediaBytes()))

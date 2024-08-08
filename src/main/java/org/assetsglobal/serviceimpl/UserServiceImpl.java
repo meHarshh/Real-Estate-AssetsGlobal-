@@ -173,7 +173,7 @@ public class UserServiceImpl implements UserService {
 		switch (role) {
 		case SELLER -> user = new Seller();
 		case BUYER -> user = new Buyer();
-		case BROCKER -> user = new Brocker();
+		case BROKER -> user = new Brocker();
 		default -> throw new IllegalArgumentException("Invalid Input!!!");
 		}
 		user.setPhoneNumber(userRequest.getPhoneNumber());

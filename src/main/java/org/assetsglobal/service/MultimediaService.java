@@ -10,7 +10,7 @@ public interface MultimediaService {
 
 	ResponseEntity<SimpleResponseStructure> saveImage(MultipartFile file, int developerID) throws IOException;
 
-	ResponseEntity<byte[]> getMedia(String mediaId);
+	ResponseEntity<byte[]> getMedia(int mediaId);
 
 	ResponseEntity<byte[]> getMedias(int developerId);
 
